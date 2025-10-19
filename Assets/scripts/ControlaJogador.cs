@@ -12,14 +12,13 @@ public class ControlaJogador : MonoBehaviour {
     public GameObject bulletPrefab;
     public Transform firePoint;
     public float bulletSpeed = 10f;
-    public float fireRate = 0.25f;
+    public float fireRate = 0.45f;
 
     [SerializeField] private TextMeshProUGUI healthText;
 
     private Vector2 moveInput;
     private float nextFireTime = 0f;
     private Rigidbody2D rb;
-    private int screenBound = 100;
     private int health = 3;
 
   void Start ()
@@ -35,13 +34,14 @@ public class ControlaJogador : MonoBehaviour {
         float moveVertical = Input.GetAxis("Vertical");
         moveInput = new Vector2(moveHorizontal, moveVertical);
 
-        if (Input.GetKey(KeyCode.F) && Time.time >= nextFireTime)
+        if (Input.GetKey(KeyCode.Space) && Time.time >= nextFireTime)
         {
             Shoot();
             nextFireTime = Time.time + fireRate;
         }
 
         healthText.text = "x" + health;
+        GameOver();
     }
 
     private void FixedUpdate()
@@ -82,6 +82,14 @@ public class ControlaJogador : MonoBehaviour {
         if (collision.tag == "Enemy")
         {
             if (health > 0) health--;
+        }
+    }
+
+    void GameOver()
+    {
+        if (health <=0)
+        {
+            Debug.Log("GameOver");
         }
     }
 }

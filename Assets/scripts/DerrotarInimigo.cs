@@ -10,6 +10,9 @@ public class DerrotarInimigo : MonoBehaviour
         {
             Destroy(collision.gameObject);
             Destroy(gameObject);
+        } else if (collision.tag == "Player")
+        {
+            Destroy(gameObject);
         }
     }
 }
