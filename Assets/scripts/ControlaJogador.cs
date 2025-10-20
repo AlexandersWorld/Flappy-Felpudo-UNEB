@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class ControlaJogador : MonoBehaviour {
 
+    public static ControlaJogador _instance { get; private set; }
+
     [Header("Movement Settings")]
     [SerializeField] private float moveSpeed = 5f;
 
@@ -12,24 +14,44 @@ public class ControlaJogador : MonoBehaviour {
     public GameObject bulletPrefab;
     public Transform firePoint;
     public float bulletSpeed = 10f;
-    public float fireRate = 0.45f;
+    public float fireRate = 0.25f;
 
     [SerializeField] private TextMeshProUGUI healthText;
+    [SerializeField] private int maxHealth = 3;
 
     private Vector2 moveInput;
-    private float nextFireTime = 0f;
+    private float nextFireTime = 1f;
     private Rigidbody2D rb;
-    private int health = 3;
+    private int health;
 
-  void Start ()
+    private void Awake()
+    {
+        if (_instance != null && _instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        _instance = this;
+    }
+
+    void Start ()
     {
         rb = GetComponent<Rigidbody2D>();
+        health = maxHealth;
 
         healthText.text = "x" + health;
     }
   
   void Update ()
     {
+        if (health >= 0)
+        {
+            healthText.text = "x" + health;
+        }
+
+        if (isGameOver()) return;
+
         float moveHorizontal = Input.GetAxis("Horizontal");
         float moveVertical = Input.GetAxis("Vertical");
         moveInput = new Vector2(moveHorizontal, moveVertical);
@@ -39,9 +61,6 @@ public class ControlaJogador : MonoBehaviour {
             Shoot();
             nextFireTime = Time.time + fireRate;
         }
-
-        healthText.text = "x" + health;
-        GameOver();
     }
 
     private void FixedUpdate()
@@ -79,17 +98,14 @@ public class ControlaJogador : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Enemy")
+        if (collision.tag == "Enemy" || collision.tag == "Uruca")
         {
-            if (health > 0) health--;
+            if (health >= 0) health--;
         }
     }
 
-    void GameOver()
+    public bool isGameOver()
     {
-        if (health <=0)
-        {
-            Debug.Log("GameOver");
-        }
+       return health <= 0;
     }
 }
