@@ -23,7 +23,7 @@
 
 ## 🖼️ Game Screenshot
 
-![Game Screenshot](./assets/screenshot.png)  
+![Game Screenshot](./Assets/assets/screenshot.png)  
 *Replace this with your actual game screenshot.*
 
 ---
