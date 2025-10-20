@@ -55,7 +55,7 @@
 
 ## 👾 Credits
 
-- **Developer:** Alexandre Santos, Marcus Paulo.
+- **Developer:** Alexandre Santos, Marcus Paulo, Rafael Girardi
 ---
 
 ## 🐾 License
