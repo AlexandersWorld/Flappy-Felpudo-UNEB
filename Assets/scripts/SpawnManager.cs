@@ -3,28 +3,42 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     [Header("Enemy Prefabs")]
-    public GameObject straightEnemyPrefab;
-    public GameObject chaserEnemyPrefab;
+    [SerializeField] private GameObject straightEnemyPrefab;
+    [SerializeField] private GameObject chaserEnemyPrefab;
+    [SerializeField] private GameObject Uruca;
+    [SerializeField] private Transform UrucaSpawnPoint;
 
     [Header("Spawn Settings")]
-    public float spawnInterval = 2f;
-    public float spawnHeightRange = 4f;
-    public float spawnXOffset = 20f;
+    [SerializeField] private float spawnInterval = 2f;
+    [SerializeField] private float spawnHeightRange = 4f;
+    [SerializeField] private float spawnXOffset = 20f;
 
     private float nextSpawnTime = 0f;
     private Transform player;
+    private bool bossFightStarts = false;
+
+    private bool canSpawn = true;
 
     void Start()
     {
+        canSpawn = true;
         player = GameObject.FindGameObjectWithTag("Player")?.transform;
     }
 
     void Update()
     {
-        if (Time.time >= nextSpawnTime)
+        if (ControlaJogador._instance.isGameOver()) return;
+
+        if (Time.time >= nextSpawnTime && canSpawn)
         {
             SpawnEnemy();
             nextSpawnTime = Time.time + spawnInterval;
+        }
+
+        if (GameManager._instance.GetGameTime() <= -5 && !bossFightStarts)
+        {
+            bossFightStarts = true;
+            Instantiate(Uruca, UrucaSpawnPoint.position, Quaternion.identity);
         }
     }
 
@@ -38,5 +52,25 @@ public class EnemySpawner : MonoBehaviour
 
         GameObject prefabToSpawn = Random.value > 0.5f ? straightEnemyPrefab : chaserEnemyPrefab;
         Instantiate(prefabToSpawn, spawnPos, Quaternion.identity);
+    }
+
+    public void StopSpawning()
+    {
+        canSpawn = false;
+    }
+
+    public void StartSpawning()
+    {
+        canSpawn = true;
+    }
+
+    public float GetSpawnInterval()
+    {
+        return spawnInterval;
+    }
+
+    public void SetSpawnInterval(float value)
+    {
+        spawnInterval = value;
     }
 }
