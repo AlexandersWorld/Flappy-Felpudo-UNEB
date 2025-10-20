@@ -40,8 +40,7 @@
 ## 🛠️ Built With
 
 - **Unity Engine**  
-- **C#** for game logic  
-- Pixel-art inspired graphics  
+- **C#** for game logic
 
 ---
 
@@ -49,16 +48,15 @@
 
 1. Download the latest release from the **Releases** section.  
 2. Unzip the folder.  
-3. Run `FelpudoVSUruca.exe`.  
+3. Open on Unity editor.  
 4. Play and enjoy!
+5. GO to Unity Play: 
 
 ---
 
 ## 👾 Credits
 
-- **Developer:** Alexandre Santos  
-- **Music & SFX:** Free or custom assets  
-
+- **Developer:** Alexandre Santos, Marcus Paulo.
 ---
 
 ## 🐾 License
