@@ -49,7 +49,7 @@
 2. Unzip the folder.  
 3. Open on Unity editor.  
 4. Play and enjoy!
-5. GO to Unity Play: 
+5. GO to Unity Play: https://play.unity.com/en/games/981b2d14-daa5-4287-b04e-c34fd2c11ac1/felpudo-vs-uruca
 
 ---
 
